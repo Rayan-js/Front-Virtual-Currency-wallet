@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../api/api";
+import api from "../../api/api.js";
 import styles from "./UsersList.module.css";
 
 const UsersList = () => {
