@@ -1,14 +1,22 @@
-import React from 'react';
-import QRCode from 'qrcode.react';
+import React from "react";
+import { QRCodeCanvas } from "qrcode.react";
+import styles from "./QRCodePage.module.css";
 
 const QRCodePage = () => {
-  const appDownloadUrl = 'http://<IP_WEB_SERVER>/download'; // Substituir pelo IP do servidor web
+  const appDownloadUrl = "http://18.228.222.137/download"; // Substitua pelo URL do seu aplicativo
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1>Indique e Ganhe!</h1>
-      <p>Escaneie o QR Code abaixo para baixar nosso aplicativo:</p>
-      <QRCode value={appDownloadUrl} size={200} />
+    <div className={styles.container}>
+      <h1 className={styles.title}>Indique e Ganhe!</h1>
+      <p className={styles.description}>
+        Escaneie o QR Code abaixo para baixar nosso aplicativo:
+      </p>
+      <div className={styles.qrWrapper}>
+        <QRCodeCanvas value={appDownloadUrl} size={200} />
+      </div>
+      <p className={styles.instruction}>
+        Aponte a câmera do seu celular para o QR Code e aproveite!
+      </p>
     </div>
   );
 };
