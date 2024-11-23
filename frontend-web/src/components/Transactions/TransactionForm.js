@@ -1,20 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../../api/api.js";
-import styles from "./TransactionForm.module.css"; // Importando o CSS Module
+import styles from "./TransactionForm.module.css";
 
-const TransactionForm = () => {
+const TransactionForm = ({ setUserId }) => {
   const [formData, setFormData] = useState({
     userId: "",
     valor: "",
-    tipo: "CREDIT", // Tipo padrão (CREDIT)
+    tipo: "CREDIT",
     description: "",
   });
 
   const [message, setMessage] = useState("");
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await api.get("/users");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar usuários:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // Atualize o userId no componente pai diretamente
+    if (name === "userId") {
+      setUserId(value);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -46,17 +65,23 @@ const TransactionForm = () => {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGroup}>
           <label htmlFor="userId" className={styles.label}>
-            ID do Usuário:
+            Selecionar Usuário:
           </label>
-          <input
-            type="number"
+          <select
             id="userId"
             name="userId"
             value={formData.userId}
             onChange={handleChange}
             required
-            className={styles.input}
-          />
+            className={styles.select}
+          >
+            <option value="">Selecione um usuário</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.nome} ({user.email})
+              </option>
+            ))}
+          </select>
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="valor" className={styles.label}>

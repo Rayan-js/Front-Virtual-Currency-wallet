@@ -12,7 +12,10 @@ const TransactionsList = ({ userId }) => {
         const response = await api.get(`/transactions/${userId}`);
         setTransactions(response.data);
       } catch (err) {
-        console.error(err);
+        console.error(
+          "Erro ao buscar transações:",
+          err.response || err.message
+        );
         setError("Erro ao buscar transações. Tente novamente mais tarde.");
       }
     };
