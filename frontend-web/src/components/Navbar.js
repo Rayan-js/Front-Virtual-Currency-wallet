@@ -1,14 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import styles from "./Navbar.module.css";
 
 const Navbar = () => (
-  <nav>
+  <nav className={styles.navbar}>
+    <div className={styles.brand}>My App</div>
     <ul>
       <li>
         <NavLink
           to="/"
-          end
-          className={({ isActive }) => (isActive ? "active" : "")}
+          exact="true"
+          className={({ isActive }) => (isActive ? styles.active : "")}
         >
           Home
         </NavLink>
@@ -16,7 +18,7 @@ const Navbar = () => (
       <li>
         <NavLink
           to="/users"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? styles.active : "")}
         >
           Users
         </NavLink>
@@ -24,7 +26,7 @@ const Navbar = () => (
       <li>
         <NavLink
           to="/transactions"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? styles.active : "")}
         >
           Transactions
         </NavLink>
@@ -32,7 +34,7 @@ const Navbar = () => (
       <li>
         <NavLink
           to="/referral"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? styles.active : "")}
         >
           Referral
         </NavLink>
